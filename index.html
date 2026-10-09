@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SICERT – Verificación de documentos</title>
+<meta name="robots" content="noindex">
+<style>
+  :root { --ink:#111; --soft:#5b6270; --line:#d9dde4; --acc:#1F3864; --ok:#1e7b34; --okbg:#e8f4ea; --warn:#9a6b00; --warnbg:#fff4d6; --bad:#a61b1b; --badbg:#fbe6e6; --bg:#f4f5f7; --card:#fff; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.5 Arial, Helvetica, sans-serif; }
+  header { background:var(--card); border-bottom:3px solid var(--acc); }
+  .wrap { max-width:640px; margin:0 auto; padding:0 16px; }
+  .top { display:flex; align-items:center; gap:14px; padding:14px 0; }
+  .top img { height:52px; }
+  .top b { display:block; font-size:15px; letter-spacing:.3px; }
+  .top span { font-size:13px; color:var(--soft); }
+  main { padding:24px 0 40px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:22px; margin-bottom:16px; }
+  h1 { font-size:20px; margin:0 0 6px; }
+  p.lead { margin:0 0 16px; color:var(--soft); font-size:14px; }
+  label { display:block; font-size:13px; color:var(--soft); margin:10px 0 4px; }
+  input { width:100%; padding:11px 12px; border:1px solid var(--line); border-radius:8px; font:inherit; text-transform:uppercase; }
+  button { margin-top:16px; width:100%; padding:12px; border:0; border-radius:8px; background:var(--acc); color:#fff; font:inherit; font-weight:bold; cursor:pointer; }
+  .estado { border-radius:8px; padding:14px 16px; margin-bottom:16px; font-weight:bold; }
+  .estado small { display:block; font-weight:normal; margin-top:2px; }
+  .ok { background:var(--okbg); color:var(--ok); border-left:5px solid var(--ok); }
+  .warn { background:var(--warnbg); color:var(--warn); border-left:5px solid var(--warn); }
+  .bad { background:var(--badbg); color:var(--bad); border-left:5px solid var(--bad); }
+  dl { display:grid; grid-template-columns:minmax(120px,38%) 1fr; margin:0; border-top:1px solid var(--line); }
+  dt, dd { margin:0; padding:9px 0; border-bottom:1px solid var(--line); font-size:14px; }
+  dt { color:var(--soft); padding-right:10px; }
+  .foot { font-size:12px; color:var(--soft); text-align:center; }
+  [hidden] { display:none !important; }
+</style>
+</head>
+<body>
+<header><div class="wrap top"><div><b>SICERT · REGISTRO DE VERIFICACIÓN</b><span>Certificados e informes técnicos de inspección</span></div></div></header>
+<main class="wrap">
+  <section class="card" id="resultado" hidden>
+    <div id="estado" class="estado"></div>
+    <dl id="datos"></dl>
+  </section>
+  <section class="card">
+    <h1>Verificar un documento</h1>
+    <p class="lead">Escanee el código QR del documento o ingrese su código y su código de autenticidad.</p>
+    <form id="f">
+      <label for="c">Código del documento</label>
+      <input id="c" placeholder="CO-092-2026" autocomplete="off" required>
+      <label for="k">Código de autenticidad</label>
+      <input id="k" placeholder="XXXX-XXXX" autocomplete="off" required>
+      <button type="submit">Verificar</button>
+    </form>
+  </section>
+  <p class="foot">Registro administrado por el Responsable Técnico que suscribe los documentos.<br>Los datos se muestran únicamente a quien posee el código de autenticidad del documento.</p>
+</main>
+<script id="registro" type="application/json">{"actualizado":"2026-10-09","docs":[{"id":"85a33c1d62a50ad8f37bba349bda39155319d7844dc98ce3ad74b7e6fdca68a3","iv":"Y23lBHOTtTO/tOAJ","data":"rEIcBVh79VhQINn++j9dSxgKYY9Kw1WSCMmlLXodbZQJIoT+9AZFc2W27eyrRNUKHS2melzXEFehz+AbXcYKAzHqC21eFJ7RjBUSOaqImYaOTqyRcYAdQ1z3cSzkZCTmbFxbojLOWKS8ZtROmideLFaiR/NBaSUsjHgWrQAq7hNEbJs+H1tW5k33clzv7x10ii2jziniP4Z/XUFV5zGUZhqDoX1ar1aYJFDDYY82jbFvKXHbwkeN8QdpfnPrJzSXy53qSVzgNJcIHOczJWPOYoJiKYpJ/UUxwpkakFNttFsea8P488RwvfcEM+QOValCdaU7Kq7aVYDFsffcPUS/GOwE12bp/dt5E4wI9UtV9BTGES4fyFqXoQFdnXZOvx0IfJ6rtFsdViVkPRVzRSuj3GkXknrhZsY3IFZn/V8MhEaxgJ2WtIBSk5aNf7khkrkV0oWlO08fWh+yRTi5aXTgx/CTNvGRVTRcEj2daOHj5j4aQ/u9OzWQosDpC5N8dp6VCZCC9eDU78QgBN1HWQHSiJBWS1E3/CxQnEUbsPdSFrz/kG8/l5sngGyRhosGaifee7WKQzw+3hRzAIWO++yqsNdTwNWhRugyvKhB75IrxWEAjT27Po/X4iwL7U3k5U+7fZRlz0EfuijFYsH+gQtFb00hZPMFBiPB6ZtCEml2Owe/MhXIRtqk/IuotyX1X1SebnQ+d077uhlB8Zqp4al7II0MqvRhDsly5MsrXAQ1/QyPIructJCH0ICBc11/MvIeLp6eKwFKVQ=="},{"id":"54a29082216787440f02dba314a99420b9f2874dac55c89ee9bfabe9bf23d26c","iv":"/zWnC9WR0rnRONNh","data":"V1JoAsvcSxFIW9CD3Av8+moVDOZ/IjuXqIxleksRnBgs28OUAH/4BwVM4x+Wx8iEwHfiF/P79ueXXcx8sezD75AgJsfwtkALMT0ukpA7TDt6Yp/aHMKj8BHF0jdH1f3KQKZLYD95mhsDx5w9Z3fE+9lIPirKK1urx1P3i/y6Ll/+xgiizQecvC8IpUfnvvDXXqZactOw/9x6yxftCrAzjisr/0GXGaXlqic9AJNX91+ZijPbC3CO26XUGqv0pWlW60wcl4y+nBxoTejbUJr4Tm9C8/Vis1dK8VYqLCfVPpLAUeIPKvGC/gexiQOnfh4s3cS39MNZI9el1J7GX4T3iGIaLqyGSeGS1krlRnnqOLFB8KK+u3x526+aEst0HjxUEJ2HV6NCa3DJh69z14wpi1EABZadqkdg1Fm9dAAtOPpZ1klHPhOOvqmKNXOmMXRz1ZPTl0H49rWKaWnW7VrvM+pg/Jn5pVQ4X6wvsf1hXTmuTImTTgB/nCngjp/RvHZkUYOqShw3ujuujKPG2om0zJ6slD/xfa8lvc6ujfwBfjyB9I8iZ/k4jtcaxPzfy5c3B2zhzAUSbf94j9bnU+hl0CPkda+6NAH6Rwap3I/T0zS90aBNkSebP1XYPeZOA3uxtWG2f0mTUtR++2N8XAf9FeSYqfdglD6DPhphO0jZpXlYLNaK8/D9KqMaDrncTmBAIUOOyMaUh2ugKntRtcgCVdsDSxIwuJoMXJFKnYI0e7zEBMN+OUfvznqgWIHkl1AWGZcbUfXj/zUdnHg="}]}</script>
+<script>
+(function () {
+  var REG = JSON.parse(document.getElementById('registro').textContent || '{"docs":[]}');
+  var enc = new TextEncoder();
+  function hex(buf) { return Array.prototype.map.call(new Uint8Array(buf), function (b) { return ('0' + b.toString(16)).slice(-2); }).join(''); }
+  function b64(s) { var bin = atob(s), u = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u; }
+  function norm(s) { return String(s || '').trim().toUpperCase().replace(/\s+/g, ''); }
+  function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+  async function verificar(c, k) {
+    c = norm(c); k = norm(k);
+    var id = hex(await crypto.subtle.digest('SHA-256', enc.encode('SICERT-ID|' + c + '|' + k)));
+    var row = (REG.docs || []).find(function (d) { return d.id === id; });
+    var box = document.getElementById('resultado'), est = document.getElementById('estado'), dl = document.getElementById('datos');
+    box.hidden = false; dl.innerHTML = '';
+    if (!row) {
+      est.className = 'estado bad';
+      est.innerHTML = 'Documento no registrado<small>El código ' + esc(c) + ' con ese código de autenticidad no figura en este registro. No corresponde a un documento válido.</small>';
+      return;
+    }
+    var keyRaw = await crypto.subtle.digest('SHA-256', enc.encode('SICERT-KEY|' + c + '|' + k));
+    var key = await crypto.subtle.importKey('raw', keyRaw, 'AES-GCM', false, ['decrypt']);
+    var plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(row.iv) }, key, b64(row.data));
+    var d = JSON.parse(new TextDecoder().decode(plain));
+    var hoy = new Date().toISOString().slice(0, 10);
+    if (d.estado === 'ANULADO') { est.className = 'estado bad'; est.innerHTML = 'Documento anulado<small>' + esc(d.nota || 'Este documento fue anulado por el Responsable Técnico.') + '</small>'; }
+    else if (d.vigenciaISO && hoy > d.vigenciaISO) { est.className = 'estado warn'; est.innerHTML = 'Documento auténtico – vigencia vencida<small>El documento es auténtico, pero su vigencia terminó el ' + esc(d.vigencia) + '.</small>'; }
+    else { est.className = 'estado ok'; est.innerHTML = 'Documento auténtico y vigente<small>Registrado por el Responsable Técnico que lo suscribe.</small>'; }
+    [['Documento', d.tipo + ' ' + d.codigo], ['Emitido por', 'SSGG – AYNI Servicios Generales'], ['Sistema', d.sistema], ['Establecimiento', d.sede], ['Razón social', d.razon + ' – RUC ' + d.ruc], ['Dirección', d.dir], ['Fecha de inspección', d.inspeccion], ['Fecha de emisión', d.emision], ['Vigencia', 'Hasta el ' + d.vigencia], ['Resultado', d.dictamen], ['Responsable técnico', 'CIP N.º ' + d.cip]]
+      .forEach(function (r) { if (!r[1]) return; var dt = document.createElement('dt'), dd = document.createElement('dd'); dt.textContent = r[0]; dd.textContent = r[1]; dl.appendChild(dt); dl.appendChild(dd); });
+  }
+
+  document.getElementById('f').addEventListener('submit', function (e) { e.preventDefault(); verificar(document.getElementById('c').value, document.getElementById('k').value); });
+  var q = new URLSearchParams(location.search.length > 1 ? location.search : location.hash.replace(/^#/, '?'));
+  if (q.get('c') && q.get('k')) { document.getElementById('c').value = q.get('c'); document.getElementById('k').value = q.get('k'); verificar(q.get('c'), q.get('k')); }
+})();
+</script>
+</body>
+</html>
